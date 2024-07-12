@@ -22,6 +22,10 @@ def main():
         print("2. 如果txt内容为空，则删除txt和对应的图片。")
         print("3. 随机提取10%图片放入新目录，正则化或者验证集可以使用。")
         print("4. 批量去白边")
+        print("5. 拆分文件夹")
+        print("6. 提取所有文件到文件夹")
+        print("7. 2/3图片提取到reg文件夹")
+        print("8. 把图片分为横屏、竖屏、正方形")
         print("0. 退出")
         
         choice = input("输入选项: ")
@@ -33,7 +37,15 @@ def main():
         elif choice == '3':
             run_script('extract_and_cleanup_images.py')
         elif choice == '4':
-            run_script('PhotoOptimizer')
+            run_script('PhotoOptimizer.py')
+        elif choice == '5':
+            run_script('split_files_into_folders.py')
+        elif choice == '6':            
+            run_script('extract_all_files.py')
+        elif choice == '7':
+            run_script('extract_two_thirds_files.py')
+        elif choice == '8':
+             run_script('classify_images_by_orientation.py')
         elif choice == '0':
             print("退出程序")
             break
