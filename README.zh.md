@@ -6,19 +6,37 @@
 
 ```
 DatasetManagementScripts/
-│
 ├── add_prefix_to_txt_files.py
+├── classify_images_by_orientation.py
 ├── delete_empty_txt_and_jpg.py
-├── extract_and_cleanup_images.py
+├── fractional_image_extractor.py
+├── move_files.py
 ├── PhotoOptimizer.py
-└── run.py
+├── README.md
+├── README.zh.md
+├── run.py
+└── split_files_into_folders.py
 ```
 
-- `add_prefix_to_txt_files.py`：在txt文件中添加触发词，记得添加英文逗号。
-- `delete_empty_txt_and_jpg.py`：如果txt文件内容为空，则删除txt文件和对应的图片。
-- `extract_and_cleanup_images.py`：随机提取10%的图片放入新目录，正则化或者验证集可以使用。
-- `PhotoOptimizer.py`：批量去除图片白边。
-- `launcher.py`：启动器脚本，可以通过此脚本选择运行上述子脚本。
+- `add_prefix_to_txt_files.py`：在所有txt文件的文件名前添加指定的前缀。
+
+- `classify_images_by_orientation.py`：自动识别图片的方向（1:1、竖屏或横屏），并将图片分别移动到对应的文件夹中。
+
+- `delete_empty_txt_and_jpg.py`：检查txt文件是否为空，如果为空，则同时删除该txt文件及其对应的jpg图片。
+
+- `fractional_image_extractor.py`：从现有图片集中随机抽取一定比例（例如10%）的图片，用于创建验证集或测试集。
+
+- `move_files.py`：根据指定规则移动文件到不同的目录。
+
+- `PhotoOptimizer.py`：对图片进行批量优化处理，如去除白边等。
+
+- `README.md`：英文版的README文件，提供脚本的基本信息和使用指南。
+
+- `README.zh.md`：中文版的README文件，提供脚本的基本信息和使用指南。
+
+- `run.py`：主执行脚本，通过此脚本可运行上述各个数据管理脚本。
+
+- `split_files_into_folders.py`：将文件按照指定的规则分批划分到不同的文件夹中。
 
 ## 安装
 
