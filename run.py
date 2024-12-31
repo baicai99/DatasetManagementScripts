@@ -28,6 +28,7 @@ def main():
         print("8. 末尾追加任意字符")
         print("9. 中心裁剪")
         print("10. 压缩图片到指定kb")
+        print("11. 创建嵌套文件夹")
 
         print("0. 退出")
         
@@ -53,6 +54,8 @@ def main():
             run_script('center_crop.py')
         elif choice == '10':
             run_script('batch_image_compression.py')
+        elif choice == '11':
+            run_script('create_nested_folders.py')
         elif choice == '0':
             print("退出程序")
             break
