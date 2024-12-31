@@ -25,7 +25,10 @@ def main():
         print("5. 拆分文件夹")
         print("6. 把图片分为横屏、竖屏、正方形")
         print("7. 把图片移动到父文件夹")
-        print("7. 末尾追加任意字符")
+        print("8. 末尾追加任意字符")
+        print("9. 中心裁剪")
+        print("10. 压缩图片到指定kb")
+
         print("0. 退出")
         
         choice = input("输入选项: ")
@@ -46,6 +49,10 @@ def main():
             run_script('move_files.py')
         elif choice == '8':
             run_script('append_comma.py')
+        elif choice == '9':
+            run_script('center_crop.py')
+        elif choice == '10':
+            run_script('batch_image_compression.py')
         elif choice == '0':
             print("退出程序")
             break
