@@ -34,6 +34,7 @@ DatasetManagementScripts/
 - `README.zh.md`：中文版说明文件，提供脚本的基本信息和使用指南。
 - `run.py`：主执行脚本，允许运行各种数据管理脚本。
 - `split_files_into_folders.py`：根据指定规则将文件分割到不同文件夹。
+- `remove_string.py`:删除txt文件中的指定字符串。
 
 ## 安装
 
