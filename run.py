@@ -29,6 +29,7 @@ def main():
         print("9. 中心裁剪")
         print("10. 压缩图片到指定kb")
         print("11. 创建嵌套文件夹")
+        print("12. 删除txt文件中的指定字符串")
 
         print("0. 退出")
         
@@ -56,6 +57,8 @@ def main():
             run_script('batch_image_compression.py')
         elif choice == '11':
             run_script('create_nested_folders.py')
+        elif choice == '12':
+            run_script('remove_string.py')
         elif choice == '0':
             print("退出程序")
             break
