@@ -1,107 +1,161 @@
-# DatasetManagementScripts
+# Dataset Management Toolkit
 
-This project provides a Python launcher script that allows users to choose and run different sub-scripts.
+This project provides a comprehensive set of Python tools for managing and processing datasets, particularly suitable for preprocessing, organizing, and optimizing machine learning datasets.
 
 ## Project Structure
 
 ```
-DatasetManagementScripts/
-├── add_prefix_to_txt_files.py
-├── append_comma.py
-├── batch_image_compression.py
-├── center_crop.py
-├── classify_images_by_orientation.py
-├── delete_empty_txt_and_jpg.py
-├── fractional_image_extractor.py
-├── move_files.py
-├── PhotoOptimizer.py
-├── README.md
-├── README.zh.md
-├── run.py
-└── split_files_into_folders.py
+project_root/
+├── core/
+│   └── run.py                             # Main menu program
+│
+├── file_utils/
+│   ├── create_nested_folders.py           # Create nested folders
+│   ├── move_files.py                      # Move files to parent folder
+│   ├── sequential_file_renamer.py         # Sequential file renaming
+│   └── split_files_into_folders.py        # Split files into multiple folders
+│
+├── image_utils/
+│   ├── classification/
+│   │   ├── classify_images_by_orientation.py  # Classify images by orientation
+│   │   └── fractional_image_extractor.py      # Extract random subset of images
+│   │
+│   ├── cropping/
+│   │   ├── aspect_ratio_cropper.py        # Crop to specific aspect ratio
+│   │   ├── center_crop.py                 # Center crop images
+│   │   └── remove_black_borders.py        # Remove black borders from images
+│   │
+│   ├── optimization/
+│   │   ├── batch_image_compression.py     # Compress images to specified size
+│   │   └── PhotoOptimizer.py              # Batch optimize images (remove white borders)
+│   │
+│   └── sampling/
+│       └── image_sampler.py               # Image sampler
+│
+├── text_utils/
+│   ├── add_prefix_to_txt_files.py         # Add trigger words to txt files
+│   ├── append_comma.py                    # Append characters to end of files
+│   ├── delete_empty_txt_and_jpg.py        # Delete empty txt files and corresponding images
+│   ├── delete_txt_files.py                # Delete all txt files
+│   └── remove_string.py                   # Remove specific strings from txt files
+│
+├── video_utils/
+│   └── video_frame_extractor.py           # Extract frames from videos
+│
+└── docs/
+    ├── LICENSE                            # License file
+    ├── README.md                          # English documentation
+    └── README.zh.md                       # Chinese documentation
 ```
 
-- `add_prefix_to_txt_files.py`: Adds a specified prefix to the filenames of all txt files.
-- `append_comma.py`: Appends a comma to the end of each line in txt files.
-- `batch_image_compression.py`: Compresses images to a specified size in KB.
-- `center_crop.py`: Crops the center of images.
-- `classify_images_by_orientation.py`: Automatically identifies the orientation of images (1:1, portrait, or landscape) and moves them to corresponding folders.
-- `delete_empty_txt_and_jpg.py`: Checks if txt files are empty and deletes the empty txt files along with their corresponding jpg images.
-- `fractional_image_extractor.py`: Randomly extracts a certain percentage (e.g., 10%) of images from an existing dataset for creating validation or test sets.
-- `move_files.py`: Moves files to different directories based on specified rules.
-- `PhotoOptimizer.py`: Optimizes images in batches, such as removing white borders.
-- `README.md`: The English version of the README file, providing basic information and usage guidelines for the scripts.
-- `README.zh.md`: The Chinese version of the README file, providing basic information and usage guidelines for the scripts.
-- `run.py`: The main execution script that allows running the various data management scripts.
-- `split_files_into_folders.py`: Divides files into different folders according to specified rules.
+## Tool Descriptions
+
+### Text File Processing Tools
+
+- `add_prefix_to_txt_files.py`: Add prefixes or trigger words to txt files, supporting multiple comma-separated terms
+- `append_comma.py`: Append any specified character to the end of txt file content
+- `delete_empty_txt_and_jpg.py`: Check and delete empty txt files and their corresponding image files with the same name
+- `delete_txt_files.py`: Batch delete all txt files in a specified directory
+- `remove_string.py`: Remove specified strings or phrases from txt files
+
+### File Management Tools
+
+- `create_nested_folders.py`: Create nested folder hierarchies according to specified structure
+- `move_files.py`: Move files from subfolders to parent folders for centralized management
+- `sequential_file_renamer.py`: Rename files sequentially to maintain a uniform naming format
+- `split_files_into_folders.py`: Split large quantities of files into multiple subfolders based on specified counts
+
+### Image Processing Tools
+
+#### Classification Tools
+- `classify_images_by_orientation.py`: Automatically recognize image orientation (landscape, portrait, square) and classify into different folders
+- `fractional_image_extractor.py`: Randomly extract a certain percentage (e.g., 10%) of images to a new directory for validation or test sets
+
+#### Cropping Tools
+- `center_crop.py`: Perform center cropping on images, preserving the central area
+- `aspect_ratio_cropper.py`: Crop images to a specific aspect ratio
+- `remove_black_borders.py`: Automatically detect and remove black borders around images
+
+#### Optimization Tools
+- `batch_image_compression.py`: Batch compress images to a specified KB size to save storage space
+- `PhotoOptimizer.py`: Batch optimize images, including removing white borders and other enhancements
+
+#### Sampling Tools
+- `image_sampler.py`: Intelligent sampling from image datasets for data analysis or subset creation
+
+### Video Processing Tools
+
+- `video_frame_extractor.py`: Extract frames from video files at specified intervals to generate image sequences
 
 ## Installation
 
 1. Clone the repository to your local machine:
     ```bash
-    git clone https://github.com/yourusername/DatasetManagementScripts.git
-    cd DatasetManagementScripts
+    git clone https://github.com/yourusername/dataset-management-tools.git
+    cd dataset-management-tools
     ```
 
-2. Ensure you have a Python environment installed.
+2. Ensure you have Python environment and required dependencies installed:
+    ```bash
+    pip install -r requirements.txt
+    ```
 
 ## Usage
 
-Run the launcher script `run.py` and choose the sub-script you want to execute based on the prompts.
+Run the main menu program and select the tool you want to execute through the interactive interface:
 
 ```bash
-python run.py
+python core/run.py
 ```
 
-After starting the script, follow the prompts to select an option:
+The program will display a categorized menu. Follow the prompts to select the appropriate tool:
 
 ```
-Please choose a script to run:
-1. Add prefix to txt files
-2. Delete empty txt and corresponding images
-3. Randomly extract 10% images for a new directory (e.g., for validation or test sets)
-4. Batch remove white borders
-5. Split files into folders
-6. Classify images by orientation
-7. Move files to parent directory
-8. Append comma to txt files
-9. Center crop images
-10. Compress images to specified KB
+===== Image Processing Toolkit =====
+
+Please select a script to run:
+
+Text File Processing Tools:
+1. Add trigger words to txt files (remember to add commas)
+2. Delete empty txt files and their corresponding images
+3. Append any character to the end
+4. Remove specified strings from txt files
+5. Delete txt files
+
+File Management Tools:
+6. Split folders
+7. Move images to parent folder
+8. Create nested folders
+9. Sequential file renaming
+
+Image Processing Tools:
+10. Randomly extract 10% of images to a new directory for regularization or validation
+11. Batch remove white borders
+12. Classify images as landscape, portrait, or square
+13. Center crop
+14. Compress images to specified KB
+15. Image sampler
+16. Remove black borders from images
+17. Aspect ratio cropping
+
+Video Processing Tools:
+18. Extract frames from video
+
 0. Exit
-Enter option:
+
+Enter option: 
 ```
-
-Input the corresponding number and press Enter to run the selected sub-script.
-
-## Example
-
-Suppose you choose to run the `add_prefix_to_txt_files.py` script:
-
-```
-Enter option: 1
-```
-
-The system will prompt:
-
-```
-Running add_prefix_to_txt_files.py ...
-```
-
-and execute the script.
 
 ## Notes
 
-- Ensure all sub-scripts are in the same directory as `run.py`.
-- If you encounter file not found errors, check the script filenames and paths.
+- Before running tools, make sure you have backed up important data as some tools perform irreversible file operations
+- All scripts will prompt for confirmation before execution to prevent accidental operations
+- If you encounter path issues, check if the folder structure matches expectations
 
-## Contribution
+## Contributing
 
-Contributions are welcome. Please submit a PR to improve this project. If you have any suggestions or find any issues, please create an Issue.
+Contributions of new tools or improvements to existing tools are welcome. Please submit PRs or create Issues to discuss new features or report problems.
 
 ## License
 
-This project is licensed under the MIT License. For more details, please refer to the LICENSE file.
-
----
-
-This README file provides an overview of the project, installation steps, usage instructions, examples, notes, contribution guidelines, and licensing information. Feel free to modify and refine it according to your specific needs.
+This project is licensed under the MIT License. For more information, please refer to the LICENSE file.

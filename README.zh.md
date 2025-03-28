@@ -1,108 +1,161 @@
-# 数据集管理脚本
+# 数据集管理工具集
 
-这个项目提供了一个 Python 启动器脚本，允许用户选择和运行不同的子脚本。
+这个项目提供了一套用于管理和处理数据集的Python工具集，特别适合于机器学习数据集的预处理、组织和优化。
 
 ## 项目结构
 
 ```
-DatasetManagementScripts/
-├── add_prefix_to_txt_files.py
-├── append_comma.py
-├── batch_image_compression.py
-├── center_crop.py
-├── classify_images_by_orientation.py
-├── delete_empty_txt_and_jpg.py
-├── fractional_image_extractor.py
-├── move_files.py
-├── PhotoOptimizer.py
-├── README.md
-├── README.zh.md
-├── run.py
-└── split_files_into_folders.py
+project_root/
+├── core/
+│   └── run.py                             # 主菜单程序
+│
+├── file_utils/
+│   ├── create_nested_folders.py           # 创建嵌套文件夹
+│   ├── move_files.py                      # 移动文件到父文件夹
+│   ├── sequential_file_renamer.py         # 顺序重命名文件
+│   └── split_files_into_folders.py        # 拆分文件到多个文件夹
+│
+├── image_utils/
+│   ├── classification/
+│   │   ├── classify_images_by_orientation.py  # 按横竖屏分类图片
+│   │   └── fractional_image_extractor.py      # 随机提取一部分图片
+│   │
+│   ├── cropping/
+│   │   ├── aspect_ratio_cropper.py        # 按特定宽高比裁剪
+│   │   ├── center_crop.py                 # 中心裁剪
+│   │   └── remove_black_borders.py        # 移除图像黑边
+│   │
+│   ├── optimization/
+│   │   ├── batch_image_compression.py     # 压缩图片到指定大小
+│   │   └── PhotoOptimizer.py              # 批量去白边优化
+│   │
+│   └── sampling/
+│       └── image_sampler.py               # 图像采样器
+│
+├── text_utils/
+│   ├── add_prefix_to_txt_files.py         # 在txt添加触发词
+│   ├── append_comma.py                    # 末尾追加任意字符
+│   ├── delete_empty_txt_and_jpg.py        # 删除空txt和对应图片
+│   ├── delete_txt_files.py                # 删除所有txt文件
+│   └── remove_string.py                   # 删除txt中的指定字符串
+│
+├── video_utils/
+│   └── video_frame_extractor.py           # 从视频提取帧
+│
+└── docs/
+    ├── LICENSE                            # 许可证文件
+    ├── README.md                          # 英文说明文档
+    └── README.zh.md                       # 中文说明文档
 ```
 
-- `add_prefix_to_txt_files.py`：为所有 txt 文件的文件名添加指定前缀。
-- `append_comma.py`：在 txt 文件的每行末尾添加逗号。
-- `batch_image_compression.py`：将图片压缩到指定的 KB 大小。
-- `center_crop.py`：裁剪图片的中心部分。
-- `classify_images_by_orientation.py`：自动识别图片方向（1:1、竖向或横向）并移动到相应文件夹。
-- `delete_empty_txt_and_jpg.py`：检查 txt 文件是否为空，删除空的 txt 文件及其对应的 jpg 图片。
-- `fractional_image_extractor.py`：从现有数据集中随机提取一定比例（如 10%）的图片，用于创建验证集或测试集。
-- `move_files.py`：根据指定规则将文件移动到不同目录。
-- `PhotoOptimizer.py`：批量优化图片，如去除白边。
-- `README.md`：英文版说明文件，提供脚本的基本信息和使用指南。
-- `README.zh.md`：中文版说明文件，提供脚本的基本信息和使用指南。
-- `run.py`：主执行脚本，允许运行各种数据管理脚本。
-- `split_files_into_folders.py`：根据指定规则将文件分割到不同文件夹。
-- `remove_string.py`:删除txt文件中的指定字符串。
+## 工具说明
+
+### 文本文件处理工具
+
+- `add_prefix_to_txt_files.py`：为txt文件添加前缀或触发词，支持添加英文逗号分隔的多个词
+- `append_comma.py`：在txt文件内容末尾追加任意指定字符
+- `delete_empty_txt_and_jpg.py`：检查并删除内容为空的txt文件及其对应同名的图片文件
+- `delete_txt_files.py`：批量删除指定目录下的所有txt文件
+- `remove_string.py`：从txt文件中删除指定的字符串或短语
+
+### 文件管理工具
+
+- `create_nested_folders.py`：按照指定结构创建嵌套的文件夹层次
+- `move_files.py`：将文件从子文件夹移动到父文件夹，方便集中管理
+- `sequential_file_renamer.py`：按顺序重命名文件，保持统一的命名格式
+- `split_files_into_folders.py`：将大量文件按照指定数量分割到多个子文件夹中
+
+### 图像处理工具
+
+#### 分类工具
+- `classify_images_by_orientation.py`：自动识别图片方向（横屏、竖屏、正方形）并分类到不同文件夹
+- `fractional_image_extractor.py`：随机提取一定比例（如10%）的图片到新目录，用于创建验证集或测试集
+
+#### 裁剪工具
+- `center_crop.py`：对图片进行中心裁剪，保留中心区域
+- `aspect_ratio_cropper.py`：将图片裁剪成特定的宽高比
+- `remove_black_borders.py`：自动检测并移除图片周围的黑色边框
+
+#### 优化工具
+- `batch_image_compression.py`：批量压缩图片到指定的KB大小，节省存储空间
+- `PhotoOptimizer.py`：批量优化图片，包括去除白边等功能
+
+#### 采样工具
+- `image_sampler.py`：从图像数据集中智能采样，用于数据分析或创建子集
+
+### 视频处理工具
+
+- `video_frame_extractor.py`：从视频文件中按指定间隔提取帧，生成图像序列
 
 ## 安装
 
-1. 将仓库克隆到本地：
+1. 克隆仓库到本地：
     ```bash
-    git clone https://github.com/yourusername/DatasetManagementScripts.git
-    cd DatasetManagementScripts
+    git clone https://github.com/yourusername/dataset-management-tools.git
+    cd dataset-management-tools
     ```
 
-2. 确保安装了 Python 环境。
+2. 确保已安装Python环境和所需依赖库：
+    ```bash
+    pip install -r requirements.txt
+    ```
 
 ## 使用方法
 
-运行启动器脚本 `run.py`，根据提示选择要执行的子脚本。
+运行主菜单程序，通过交互式界面选择要执行的工具：
 
 ```bash
-python run.py
+python core/run.py
 ```
 
-启动脚本后，按照提示选择选项：
+程序会显示分类菜单，根据提示选择相应的工具：
 
 ```
+===== 图像处理工具集 =====
+
 请选择要运行的脚本：
-1. 为 txt 文件添加前缀
-2. 删除空的 txt 和对应的图片
-3. 随机提取 10% 的图片到新目录（如用于验证集或测试集）
-4. 批量去除白边
-5. 将文件分割到文件夹
-6. 按方向分类图片
-7. 将文件移动到父目录
-8. 为 txt 文件添加逗号
-9. 中心裁剪图片
-10. 将图片压缩到指定 KB
+
+文本文件处理工具:
+1. 在txt添加触发词，记得添加英文逗号。
+2. 如果txt内容为空，则删除txt和对应的图片。
+3. 末尾追加任意字符
+4. 删除txt文件中的指定字符串
+5. 删除txt文件
+
+文件管理工具:
+6. 拆分文件夹
+7. 把图片移动到父文件夹
+8. 创建嵌套文件夹
+9. 文件序列化重命名
+
+图像处理工具:
+10. 随机提取10%图片放入新目录，正则化或者验证集可以使用。
+11. 批量去白边
+12. 把图片分为横屏、竖屏、正方形
+13. 中心裁剪
+14. 压缩图片到指定kb
+15. 图像采样器
+16. 移除图像黑边
+17. 图像宽高比裁剪
+
+视频处理工具:
+18. 从视频提取帧
+
 0. 退出
-请输入选项：
+
+输入选项: 
 ```
-
-输入相应数字并按 Enter 键运行所选子脚本。
-
-## 示例
-
-假设您选择运行 `add_prefix_to_txt_files.py` 脚本：
-
-```
-请输入选项：1
-```
-
-系统将提示：
-
-```
-正在运行 add_prefix_to_txt_files.py ...
-```
-
-并执行脚本。
 
 ## 注意事项
 
-- 确保所有子脚本都在与 `run.py` 相同的目录中。
-- 如果遇到文件未找到错误，请检查脚本文件名和路径。
+- 在运行工具前，请确保已备份重要数据，某些工具会执行不可逆的文件操作
+- 所有脚本运行前都会提示确认，以防误操作
+- 如遇到路径问题，请检查文件夹结构是否与预期一致
 
 ## 贡献
 
-欢迎贡献。请提交 PR 来改进这个项目。如果您有任何建议或发现任何问题，请创建 Issue。
+欢迎贡献新工具或改进现有工具。请提交PR或创建Issue来讨论新功能或报告问题。
 
 ## 许可证
 
-本项目采用 MIT 许可证。有关详细信息，请参阅 LICENSE 文件。
-
----
-
-本 README 文件提供了项目概述、安装步骤、使用说明、示例、注意事项、贡献指南和许可信息。请根据您的具体需求修改和完善。
+本项目采用MIT许可证。有关详细信息，请参阅LICENSE文件。
