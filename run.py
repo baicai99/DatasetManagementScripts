@@ -38,6 +38,7 @@ def main():
     
     while True:
         print("\n请选择要运行的工具 / Please select a tool to execute:\n")
+        
         print("\n文本文件处理工具 / Text File Processing Tools:")
         print("1. 添加触发词至TXT文件 / Add trigger words to TXT files")
         print("2. 删除空TXT文件及对应图片 / Remove empty TXT files and corresponding images")
@@ -60,15 +61,16 @@ def main():
         print("15. 图像采样工具 / Image sampling utility")
         print("16. 移除图像黑边 / Remove black borders from images")
         print("17. 指定宽高比裁剪 / Aspect ratio-based cropping")
+        print("18. 数据集分割 / Dataset Splitter")
         
         print("\n视频处理工具 / Video Processing Tools:")
-        print("18. 视频帧提取 / Video frame extraction")
-        
+        print("19. 视频帧提取 / Video frame extraction")
+
         print("\n0. 退出 / Exit")
         
         choice = input("\n请输入选项编号 / Enter option number: ")
         
-        # 文本文件处理工具 / Text File Processing Tools
+        # 文本文件处理工具
         if choice == '1':
             run_script('text_utils/add_prefix_to_txt_files.py')
         elif choice == '2':
@@ -80,7 +82,7 @@ def main():
         elif choice == '5':
             run_script('text_utils/delete_files_by_extension.py')
         
-        # 文件管理工具 / File Management Tools
+        # 文件管理工具
         elif choice == '6':
             run_script('file_utils/split_files_into_folders.py')
         elif choice == '7':
@@ -90,7 +92,7 @@ def main():
         elif choice == '9':
             run_script('file_utils/sequential_file_renamer.py')
         
-        # 图像处理工具 / Image Processing Tools
+        # 图像处理工具
         elif choice == '10':
             run_script('image_utils/classification/fractional_image_extractor.py')
         elif choice == '11':
@@ -107,9 +109,11 @@ def main():
             run_script('image_utils/cropping/remove_black_borders.py')
         elif choice == '17':
             run_script('image_utils/cropping/aspect_ratio_cropper.py')
-        
-        # 视频处理工具 / Video Processing Tools
         elif choice == '18':
+            run_script('image_utils/classification/dataset_splitter.py')
+        
+        # 视频处理工具
+        elif choice == '19':
             run_script('video_utils/video_frame_extractor.py')
         
         elif choice == '0':
