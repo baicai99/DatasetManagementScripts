@@ -37,14 +37,9 @@ def get_crop_dimensions(image, crop_type):
         return None, None  
     return width, height  
 
-def crop_and_save_image(image_path, width, height):  
+def crop_and_save_image(image_path, width, height, output_folder):  
     image = Image.open(image_path)  
     cropped_image = center_crop(image, width, height)  
-
-    # 创建输出文件夹  
-    directory = os.path.dirname(image_path)  
-    output_folder = os.path.join(directory, "cropped_images")  
-    os.makedirs(output_folder, exist_ok=True)  
 
     # 保存结果  
     base_name = os.path.splitext(os.path.basename(image_path))[0]  
@@ -66,6 +61,12 @@ def main():
         print("返回上一级...")  
         return  
 
+    # 询问用户输出文件夹路径
+    output_folder = input("请输入输出文件夹路径（留空则默认为当前目录下的cropped_images）：").strip()
+    if output_folder == "":
+        output_folder = os.path.join(folder_path, "cropped_images")
+    os.makedirs(output_folder, exist_ok=True)
+
     # 遍历文件夹并处理图片  
     # 默认第一张图片用于获取裁剪参数  
     for file_name in os.listdir(folder_path):  
@@ -79,14 +80,14 @@ def main():
                 return  # 如果返回上一级则退出  
 
             # 对文件夹内的每个图像进行裁剪并保存  
-            crop_and_save_image(image_path, width, height)  
+            crop_and_save_image(image_path, width, height, output_folder)  
             break  # 只使用第一张图片来获取裁剪尺寸  
 
     # 处理完裁剪尺寸后，继续处理所有图片  
     for file_name in os.listdir(folder_path):  
         if file_name.lower().endswith(('.png', '.jpg', '.jpeg', '.bmp', '.gif')):  
             image_path = os.path.join(folder_path, file_name)  
-            crop_and_save_image(image_path, width, height)  
+            crop_and_save_image(image_path, width, height, output_folder)  
 
 if __name__ == "__main__":  
     main()

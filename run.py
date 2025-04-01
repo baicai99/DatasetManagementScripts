@@ -5,9 +5,6 @@ import os
 # 获取当前脚本的根目录（core目录）
 # Get the current script's root directory (core directory)
 script_directory = os.path.dirname(os.path.abspath(__file__))
-# 获取项目根目录
-# Get the project root directory
-project_root = os.path.dirname(script_directory)
 
 def run_script(script_path):
     """
@@ -18,7 +15,7 @@ def run_script(script_path):
         script_path: 脚本相对于项目根目录的路径
                     Relative path of the script from the project root
     """
-    full_script_path = os.path.join(project_root, script_path)
+    full_script_path = os.path.join(script_directory, script_path)
     if not os.path.isfile(full_script_path):
         print(f"脚本文件 {script_path} 未找到，请检查路径。")
         print(f"Script file {script_path} not found. Please verify the path.")
@@ -46,7 +43,7 @@ def main():
         print("2. 删除空TXT文件及对应图片 / Remove empty TXT files and corresponding images")
         print("3. 追加字符至文件末尾 / Append characters to file end")
         print("4. 删除TXT文件中的指定字符串 / Remove specified strings from TXT files")
-        print("5. 批量删除TXT文件 / Batch delete TXT files")
+        print("5. 批量删除指定后缀文件 / Batch delete TXT files")
         
         print("\n文件管理工具 / File Management Tools:")
         print("6. 文件分组至多个文件夹 / Distribute files into multiple folders")
@@ -81,7 +78,7 @@ def main():
         elif choice == '4':
             run_script('text_utils/remove_string.py')
         elif choice == '5':
-            run_script('text_utils/delete_txt_files.py')
+            run_script('text_utils/delete_files_by_extension.py')
         
         # 文件管理工具 / File Management Tools
         elif choice == '6':
